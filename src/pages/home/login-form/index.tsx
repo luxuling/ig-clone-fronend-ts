@@ -19,8 +19,8 @@ export default function LoginForm(): ReactElement {
   }, [state]);
   return (
     <div>
-      <div>
-        <div className="h-[160px] flex justify-center items-center">
+      <div className="lg:border lg:border-lineGrey lg:mt-[50px] lg:px-[40px] lg:pb-3">
+        <div className="h-[160px] flex justify-center items-center lg:h-[120px]">
           <Image
             alt="instagram-logo"
             src="/assets/images/instalogo.png"
@@ -61,14 +61,14 @@ export default function LoginForm(): ReactElement {
           </button>
         </div>
       </div>
-      <div className="flex justify-center mt-14">
+      <div className="flex justify-center mt-14 lg:border lg:border-lineGrey lg:h-[65px] lg:items-center lg:mt-3">
         <span className="text-[14px]">
           Tidak punya akun?
           {' '}
           <button type="button" className="text-igBlue font-semibold">Buat akun</button>
         </span>
       </div>
-      <div className="mt-[35px]">
+      <div className="mt-[35px] lg:mt-2 text-[13px]">
         <h4 className="text-center py-3">Dapaatkan Aplikasi</h4>
         <div className="flex justify-center items-center gap-2">
           <button type="button" className="w-[132px]">

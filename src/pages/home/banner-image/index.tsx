@@ -17,7 +17,7 @@ export default function BannerImage(): ReactElement {
   });
 
   return (
-    <div className="relative">
+    <div className="relative hidden lg:block ">
       <div className="relative w-[290px] h-[570px] flex items-center justify-center overflow-hidden">
         <Image
           alt="iphone mockup"
