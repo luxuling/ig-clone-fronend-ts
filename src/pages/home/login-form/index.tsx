@@ -1,12 +1,11 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React, { type ReactElement, useEffect, useState } from 'react';
-import instaLogo from '@assets/img/instalogo.png';
 import Image from 'next/image';
 import LoginInput from '@components//input/loginInput';
 import SubmitButton from '@components//button/submit';
 import { Icon } from '@iconify/react';
 
-export default function LoginPage(): ReactElement {
+export default function LoginForm(): ReactElement {
   const [state, setState] = useState({
     acc: '',
     password: '',
@@ -24,7 +23,9 @@ export default function LoginPage(): ReactElement {
         <div className="h-[160px] flex justify-center items-center">
           <Image
             alt="instagram-logo"
-            src={instaLogo}
+            src="/assets/images/instalogo.png"
+            height={200}
+            width={400}
             className="h-[71px] w-[175px]"
           />
         </div>
@@ -66,6 +67,27 @@ export default function LoginPage(): ReactElement {
           {' '}
           <button type="button" className="text-igBlue font-semibold">Buat akun</button>
         </span>
+      </div>
+      <div className="mt-[35px]">
+        <h4 className="text-center py-3">Dapaatkan Aplikasi</h4>
+        <div className="flex justify-center items-center gap-2">
+          <button type="button" className="w-[132px]">
+            <Image
+              alt="google store btn image"
+              src="/assets/images/google-store.png"
+              height={50}
+              width={200}
+            />
+          </button>
+          <button type="button" className="w-[110px]">
+            <Image
+              alt="microsoft store btn image"
+              src="/assets/images/microsoft.png"
+              height={50}
+              width={200}
+            />
+          </button>
+        </div>
       </div>
     </div>
   );
