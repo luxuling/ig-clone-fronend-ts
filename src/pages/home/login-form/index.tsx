@@ -4,6 +4,7 @@ import Image from 'next/image';
 import LoginInput from '@components//input/loginInput';
 import SubmitButton from '@components//button/submit';
 import { Icon } from '@iconify/react';
+import Link from 'next/link';
 
 export default function LoginForm(): ReactElement {
   const [state, setState] = useState({
@@ -52,10 +53,10 @@ export default function LoginForm(): ReactElement {
           <span className="h-[1px] bg-lineGrey flex-1" />
         </div>
         <div className="flex flex-col items-center mt-6">
-          <button type="button" className="flex items-center text-[14px] text-[#385185] gap-2 font-semibold">
+          <a href="http://localhost:5000/auth/facebook" target="_blank" className="flex items-center text-[14px] text-[#385185] gap-2 font-semibold" rel="noreferrer">
             <Icon icon="ant-design:facebook-filled" className="text-xl" />
             <span>Masuk dengan Facebook</span>
-          </button>
+          </a>
           <button type="button" className="text-[12px] text-[#00376B] mt-6">
             Lupa kata sandi
           </button>
@@ -65,7 +66,7 @@ export default function LoginForm(): ReactElement {
         <span className="text-[14px]">
           Tidak punya akun?
           {' '}
-          <button type="button" className="text-igBlue font-semibold">Buat akun</button>
+          <Link href="/register" className="text-igBlue font-semibold">Buat akun</Link>
         </span>
       </div>
       <div className="mt-[35px] lg:mt-2 text-[13px]">

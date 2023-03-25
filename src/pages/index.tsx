@@ -1,8 +1,8 @@
-import React from 'react'
-import Home from './home'
+import React, { type ReactElement } from 'react';
+import Home from './home';
 
-export default function index() {
+export default function Index(): ReactElement {
   return (
-    <Home/>
-  )
+    <Home />
+  );
 }
