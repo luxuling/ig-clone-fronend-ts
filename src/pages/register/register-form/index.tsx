@@ -31,7 +31,7 @@ export default function RegisterForm(): ReactElement {
         <div className="flex flex-col items-center gap-2 mt-3">
           <LoginInput
             type="text"
-            placeholder="Nomor telepon, nama pengguna, atau email"
+            placeholder="Nomor Ponsel atau Email"
             handler={() => { console.log('hello'); }}
             id="acc"
           />
