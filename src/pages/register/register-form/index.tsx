@@ -3,9 +3,32 @@ import LoginInput from '@components//input/loginInput';
 import { Icon } from '@iconify/react';
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { type ReactElement } from 'react';
+import React, { useState, type ReactElement } from 'react';
+import AuthClient from 'service/auth.service';
+import validator from 'validator';
 
 export default function RegisterForm(): ReactElement {
+  const [state, setState] = useState({
+    account: '',
+    fullName: '',
+    userName: '',
+    password: '',
+  });
+  const registerFormHandler = (e: any): void => {
+    setState({ ...state, [e.target.id]: e.target.value });
+  };
+  const registerSubmitHandler = async (): Promise<any> => {
+    const isEmail = validator.isEmail(state.account);
+    const isNumber = validator.isMobilePhone(state.account, 'id-ID');
+    if (isEmail === true as boolean) {
+      const userData = await AuthClient.Register('email', state.account, state.fullName, state.userName, state.password);
+      console.log(userData);
+    } else if (isNumber as boolean) {
+      await AuthClient.Register('noHp', state.account, state.fullName, state.userName, state.password);
+    } else {
+      console.log(`invalid in ${state.account}`);
+    }
+  };
   return (
     <div className="md:w-[350px] md:mx-auto md:pt-3">
       <div className="px-[40px] md:border-lineGrey md:border md:pb-10">
@@ -32,25 +55,25 @@ export default function RegisterForm(): ReactElement {
           <LoginInput
             type="text"
             placeholder="Nomor Ponsel atau Email"
-            handler={() => { console.log('hello'); }}
-            id="acc"
+            handler={registerFormHandler}
+            id="account"
           />
           <LoginInput
             type="text"
             placeholder="Nama Lengkap"
-            handler={() => { console.log('hello'); }}
-            id="password"
+            handler={registerFormHandler}
+            id="fullName"
           />
           <LoginInput
             type="text"
             placeholder="Nama Pengguna"
-            handler={() => { console.log('hello'); }}
-            id="password"
+            handler={registerFormHandler}
+            id="userName"
           />
           <LoginInput
             type="password"
             placeholder="Kata Sandi"
-            handler={() => { console.log('hello'); }}
+            handler={registerFormHandler}
             id="password"
           />
         </div>
@@ -75,7 +98,7 @@ export default function RegisterForm(): ReactElement {
           </p>
         </div>
         <div className="mt-3">
-          <button type="submit" className="h-[32px] w-[265px] bg-igBlue text-white text-[14px] font-semibold text-center rounded-[8px]">Daftar</button>
+          <button type="submit" className="h-[32px] w-[265px] bg-igBlue text-white text-[14px] font-semibold text-center rounded-[8px]" onClick={registerSubmitHandler}>Daftar</button>
         </div>
       </div>
       <div className="flex justify-center mt-14 lg:border lg:border-lineGrey lg:h-[65px] lg:items-center lg:mt-3">
