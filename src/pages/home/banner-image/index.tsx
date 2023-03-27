@@ -7,14 +7,16 @@ import imageBanner from '@lib/data/image-banner.json';
 export default function BannerImage(): ReactElement {
   const [showedImage, setShowedImage] = useState(0);
   useEffect(() => {
-    const interval = setInterval(() => {
+    const timeout = setTimeout(() => {
       setShowedImage(showedImage + 1);
       if (showedImage >= 3) {
         setShowedImage(0);
       }
-    }, 4000);
-    return () => { clearInterval(interval); };
-  });
+    }, 3000);
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [showedImage]);
 
   return (
     <div className="relative hidden lg:block ">
