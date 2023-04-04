@@ -5,10 +5,9 @@ import HomePageLayout from 'layouts/homepage';
 
 export default function Register(): ReactElement {
   return (
-    <HomePageLayout>
+    <HomePageLayout title="Register">
       <div>
         <RegisterForm />
-        <Footer />
       </div>
     </HomePageLayout>
   );

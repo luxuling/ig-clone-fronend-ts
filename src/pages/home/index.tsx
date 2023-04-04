@@ -6,7 +6,7 @@ import HomePageLayout from 'layouts/homepage';
 
 export default function Home(): ReactElement {
   return (
-    <HomePageLayout>
+    <HomePageLayout title="Register">
       <div className="flex gap-[110px] justify-center items-center">
         <BannerImage />
         <LoginForm />
