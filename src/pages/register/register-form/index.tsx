@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import LoginInput from '@components//input/loginInput';
 import { Icon } from '@iconify/react';
 import Image from 'next/image';
@@ -20,11 +19,23 @@ export default function RegisterForm(): ReactElement {
   const registerSubmitHandler = async (): Promise<any> => {
     const isEmail = validator.isEmail(state.account);
     const isNumber = validator.isMobilePhone(state.account, 'id-ID');
-    if (isEmail === true as boolean) {
-      const userData = await AuthClient.Register('email', state.account, state.fullName, state.userName, state.password);
+    if (isEmail === (true as boolean)) {
+      const userData = await AuthClient.Register(
+        'email',
+        state.account,
+        state.fullName,
+        state.userName,
+        state.password
+      );
       console.log(userData);
-    } else if (isNumber as boolean) {
-      await AuthClient.Register('noHp', state.account, state.fullName, state.userName, state.password);
+    } else if (isNumber) {
+      await AuthClient.Register(
+        'noHp',
+        state.account,
+        state.fullName,
+        state.userName,
+        state.password
+      );
     } else {
       console.log(`invalid in ${state.account}`);
     }
@@ -41,8 +52,13 @@ export default function RegisterForm(): ReactElement {
             className="h-[90px] w-[175px]"
           />
         </div>
-        <p className="font-semibold text-slate-500 text-[17px] text-center">Buat akun untuk melihat foto dan video dari teman Anda.</p>
-        <a href="http://localhost:5000/auth/facebook" className="h-[34px] w-[265px] rounded-[8px] bg-igBlue flex text-white items-center justify-center gap-1 mx-auto mt-[10px]">
+        <p className="font-semibold text-slate-500 text-[17px] text-center">
+          Buat akun untuk melihat foto dan video dari teman Anda.
+        </p>
+        <a
+          href="http://localhost:5000/auth/facebook"
+          className="h-[34px] w-[265px] rounded-[8px] bg-igBlue flex text-white items-center justify-center gap-1 mx-auto mt-[10px]"
+        >
           <Icon icon="ri:facebook-box-fill" className="text-xl" />
           <span className="font-semibold text-[14px]">Masuk dengan Facebook</span>
         </a>
@@ -79,33 +95,42 @@ export default function RegisterForm(): ReactElement {
         </div>
         <div className="mt-3">
           <p className="text-[12px] text-slate-500 text-center">
-            Orang yang menggunakan layanan kami mungkin telah
-            mengunggah informasi kontak Anda ke Instagram.
-            <a href="#/" className="text-[#00376B]">Pelajari Selengkapna</a>
+            Orang yang menggunakan layanan kami mungkin telah mengunggah informasi kontak Anda ke
+            Instagram.
+            <a href="#/" className="text-[#00376B]">
+              Pelajari Selengkapna
+            </a>
           </p>
         </div>
         <div className="mt-3">
           <p className="text-[12px] text-slate-500 text-center">
-            Demgam mendaftar, berarti Anda menyetujui
-            {' '}
-            <a href="#/" className="text-[#00376B]">Kententuan, Kebijakan Privasi,</a>
-            {' '}
-            dan
-            {' '}
-            <a href="#/" className="text-[#00376B]">Kebijakan Cookie</a>
-            {' '}
+            Demgam mendaftar, berarti Anda menyetujui{' '}
+            <a href="#/" className="text-[#00376B]">
+              Kententuan, Kebijakan Privasi,
+            </a>{' '}
+            dan{' '}
+            <a href="#/" className="text-[#00376B]">
+              Kebijakan Cookie
+            </a>{' '}
             kami.
           </p>
         </div>
         <div className="mt-3">
-          <button type="submit" className="h-[32px] w-[265px] bg-igBlue text-white text-[14px] font-semibold text-center rounded-[8px]" onClick={registerSubmitHandler}>Daftar</button>
+          <button
+            type="submit"
+            className="h-[32px] w-[265px] bg-igBlue text-white text-[14px] font-semibold text-center rounded-[8px]"
+            onClick={registerSubmitHandler}
+          >
+            Daftar
+          </button>
         </div>
       </div>
       <div className="flex justify-center mt-14 lg:border lg:border-lineGrey lg:h-[65px] lg:items-center lg:mt-3">
         <span className="text-[14px]">
-          Punya akun?
-          {' '}
-          <Link href="/" className="text-igBlue font-semibold">Masuk</Link>
+          Punya akun?{' '}
+          <Link href="/" className="text-igBlue font-semibold">
+            Masuk
+          </Link>
         </span>
       </div>
       <div className="mt-[35px] lg:mt-2 text-[13px]">

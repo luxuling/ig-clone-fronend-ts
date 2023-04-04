@@ -45,7 +45,12 @@ export default function LoginForm(): ReactElement {
           />
         </div>
         <div className="flex justify-center mt-4">
-          <SubmitButton label="Masuk" handler={() => { console.log('sdfsdf'); }} />
+          <SubmitButton
+            label="Masuk"
+            handler={() => {
+              console.log('sdfsdf');
+            }}
+          />
         </div>
         <div className="flex items-center gap-4 w-[270px] mx-auto mt-4">
           <span className="h-[2px] bg-lineGrey flex-1" />
@@ -53,7 +58,12 @@ export default function LoginForm(): ReactElement {
           <span className="h-[1px] bg-lineGrey flex-1" />
         </div>
         <div className="flex flex-col items-center mt-6">
-          <a href="http://localhost:5000/auth/facebook" target="_blank" className="flex items-center text-[14px] text-[#385185] gap-2 font-semibold" rel="noreferrer">
+          <a
+            href="http://localhost:5000/auth/facebook"
+            target="_blank"
+            className="flex items-center text-[14px] text-[#385185] gap-2 font-semibold"
+            rel="noreferrer"
+          >
             <Icon icon="ant-design:facebook-filled" className="text-xl" />
             <span>Masuk dengan Facebook</span>
           </a>
@@ -64,9 +74,10 @@ export default function LoginForm(): ReactElement {
       </div>
       <div className="flex justify-center mt-14 lg:border lg:border-lineGrey lg:h-[65px] lg:items-center lg:mt-3">
         <span className="text-[14px]">
-          Tidak punya akun?
-          {' '}
-          <Link href="/register" className="text-igBlue font-semibold">Buat akun</Link>
+          Tidak punya akun?{' '}
+          <Link href="/register" className="text-igBlue font-semibold">
+            Buat akun
+          </Link>
         </span>
       </div>
       <div className="mt-[35px] lg:mt-2 text-[13px]">

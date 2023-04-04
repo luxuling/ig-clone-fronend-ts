@@ -1,8 +1,8 @@
 import React, { type ReactElement } from 'react';
 
 interface SubmitProps {
-  label: string
-  handler: (event: any) => void
+  label: string;
+  handler: (event: any) => void;
 }
 export default function SubmitButton({ label, handler }: SubmitProps): ReactElement {
   return (

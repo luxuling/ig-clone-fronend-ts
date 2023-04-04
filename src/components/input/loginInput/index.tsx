@@ -1,14 +1,12 @@
 import React, { type ReactElement } from 'react';
 
 interface Iinput {
-  placeholder: string
-  type: string
-  id: string
-  handler: (value: object) => void
+  placeholder: string;
+  type: string;
+  id: string;
+  handler: (value: object) => void;
 }
-export default function LoginInput({
-  placeholder, id, handler, type,
-}: Iinput): ReactElement {
+export default function LoginInput({ placeholder, id, handler, type }: Iinput): ReactElement {
   return (
     <input
       type={type}
