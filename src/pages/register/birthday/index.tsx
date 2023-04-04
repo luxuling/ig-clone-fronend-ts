@@ -1,3 +1,5 @@
+import HaveAccount from '@components/button/haveAccount';
+import Footer from '@components/footer';
 import { Icon } from '@iconify/react';
 import DateMaker from '@lib/date-maker';
 import Image from 'next/image';
@@ -19,8 +21,8 @@ export default function BirthDay(): ReactElement {
     });
   }, []);
   return (
-    <div>
-      <div className="px-[28px] text-[14px] text-center flex flex-col items-center">
+    <>
+      <div className="px-[28px] text-[14px] text-center flex flex-col items-center md:border md:border-lineGrey md:w-[350px] md:mx-auto md:mt-3">
         <Image
           alt="birthday logo"
           src="/assets/images/birthday.png"
@@ -91,12 +93,16 @@ export default function BirthDay(): ReactElement {
             Selanjutnya
           </button>
         </div>
-        <div className="flex justify-center mt-3 lg:border lg:border-lineGrey lg:h-[65px] lg:items-center lg:mt-3">
+        <div className="flex justify-center mt-3 lg:h-[65px] lg:items-center lg:mt-0">
           <Link href="/register" className="text-igBlue text-[14px] font-semibold">
             Kembali
           </Link>
         </div>
       </div>
-    </div>
+      <div className="md:w-[350px] md:mx-auto">
+        <HaveAccount haveAccount={true} />
+      </div>
+      <Footer />
+    </>
   );
 }
