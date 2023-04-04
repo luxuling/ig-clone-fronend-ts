@@ -1,6 +1,6 @@
 import React, { type ReactElement } from 'react';
 import Footer from '@components/footer';
-import RegisterForm from './register-form';
+import RegisterForm from '@components/input/register-form';
 
 export default function Register(): ReactElement {
   return (

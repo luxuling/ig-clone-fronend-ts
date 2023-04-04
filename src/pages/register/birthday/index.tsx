@@ -1,6 +1,7 @@
 import { Icon } from '@iconify/react';
 import DateMaker from '@lib/date-maker';
 import Image from 'next/image';
+import Link from 'next/link';
 import React, { useEffect, type ReactElement, useState } from 'react';
 
 export default function BirthDay(): ReactElement {
@@ -20,7 +21,13 @@ export default function BirthDay(): ReactElement {
   return (
     <div>
       <div className="px-[28px] text-[14px] text-center flex flex-col items-center">
-        <Image alt="birthday logo" src="/assets/images/birthday.png" width={164} height={150} />
+        <Image
+          alt="birthday logo"
+          src="/assets/images/birthday.png"
+          width={164}
+          height={150}
+          priority
+        />
         <h1 className="font-semibold mb-[10px]">Tambahkan Tanggal Lahir Anda</h1>
         <p>Ini tidak akan menjadi bagian profil publik Anda</p>
         <p className="text-igBlue">Mengapa saya harus memberikan tanggal lahir?</p>
@@ -76,6 +83,19 @@ export default function BirthDay(): ReactElement {
           Gunakan tanggal lahir Anda sendiri, bahkan jika ini adalah akun untuk bisnis, hewan
           peliharaan, atau yang lainnya
         </p>
+        <div className="mt-3">
+          <button
+            type="submit"
+            className="h-[32px] w-[265px] bg-igBlue text-white text-[14px] font-semibold text-center rounded-[8px]"
+          >
+            Selanjutnya
+          </button>
+        </div>
+        <div className="flex justify-center mt-3 lg:border lg:border-lineGrey lg:h-[65px] lg:items-center lg:mt-3">
+          <Link href="/register" className="text-igBlue text-[14px] font-semibold">
+            Kembali
+          </Link>
+        </div>
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
 import React, { type ReactElement } from 'react';
 import Footer from '@components/footer';
-import LoginForm from './login-form';
-import BannerImage from './banner-image';
+import LoginForm from '@components/input/login-form';
+import BannerImage from '@components/banner/banner-image';
 
 export default function Home(): ReactElement {
   return (
