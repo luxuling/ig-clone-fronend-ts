@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
-/* eslint-disable react/no-array-index-key */
 import Image from 'next/image';
 import React, { useState, type ReactElement, useEffect } from 'react';
 import imageBanner from '@lib/data/image-banner.json';
@@ -8,7 +6,7 @@ export default function BannerImage(): ReactElement {
   const [showedImage, setShowedImage] = useState(0);
   useEffect(() => {
     const timeout = setTimeout(() => {
-      setShowedImage(showedImage + 1);
+      setShowedImage((showedImage) => showedImage + 1);
       if (showedImage >= 3) {
         setShowedImage(0);
       }
