@@ -1,12 +1,18 @@
-import React, { type ReactElement } from 'react';
+import * as React from 'react';
 
-interface Iinput {
+interface InputProps {
   placeholder: string;
-  type: string;
   id: string;
-  handler: (value: object) => void;
+  type: string;
+  handler: (value: React.ChangeEvent<HTMLInputElement>) => void;
 }
-export default function LoginInput({ placeholder, id, handler, type }: Iinput): ReactElement {
+const LoginInput: React.FC<InputProps & React.InputHTMLAttributes<HTMLInputElement>> = ({
+  handler,
+  type,
+  id,
+  placeholder,
+  ...rest
+}) => {
   return (
     <input
       type={type}
@@ -14,6 +20,8 @@ export default function LoginInput({ placeholder, id, handler, type }: Iinput): 
       placeholder={placeholder}
       className="h-[38px] w-[270px] outline-none border border-lineGrey placeholder:text-xs bg-bgGrey rounded-[3px] px-2"
       onChange={handler}
+      {...rest}
     />
   );
-}
+};
+export default LoginInput;

@@ -1,5 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import React, { type ReactElement, useEffect, useState } from 'react';
+import React, { type ReactElement, useEffect, useState, ChangeEvent } from 'react';
 import Image from 'next/image';
 import LoginInput from '@components//input/loginInput';
 import SubmitButton from '@components//button/submit';
@@ -12,7 +12,7 @@ export default function LoginForm(): ReactElement {
     acc: '',
     password: '',
   });
-  const loginHandler = (e: any): void => {
+  const loginHandler = (e: ChangeEvent<HTMLInputElement>): void => {
     setState({ ...state, [e.target.id]: e.target.value });
   };
   useEffect(() => {

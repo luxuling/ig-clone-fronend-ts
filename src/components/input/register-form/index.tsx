@@ -2,44 +2,53 @@ import LoginInput from '@components//input/loginInput';
 import HaveAccount from '@components/button/haveAccount';
 import { Icon } from '@iconify/react';
 import Image from 'next/image';
-import Link from 'next/link';
-import React, { useState, type ReactElement } from 'react';
-import AuthClient from 'service/auth.service';
+import { useRouter } from 'next/router';
+import * as React from 'react';
+import { useDispatch } from 'react-redux';
+import { setRegisterState } from 'redux/features/register-data';
 import validator from 'validator';
 
-export default function RegisterForm(): ReactElement {
-  const [state, setState] = useState({
+export default function RegisterForm(): React.ReactElement {
+  const dispatch = useDispatch();
+  const router = useRouter();
+  const [state, setState] = React.useState({
     account: '',
     fullName: '',
     userName: '',
     password: '',
   });
-  const registerFormHandler = (e: any): void => {
+  const registerFormHandler = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setState({ ...state, [e.target.id]: e.target.value });
   };
-  const registerSubmitHandler = async (): Promise<any> => {
+  const nextButton = (): void => {
     const isEmail = validator.isEmail(state.account);
     const isNumber = validator.isMobilePhone(state.account, 'id-ID');
     if (isEmail === (true as boolean)) {
-      const userData = await AuthClient.Register(
-        'email',
-        state.account,
-        state.fullName,
-        state.userName,
-        state.password
+      dispatch(
+        setRegisterState({
+          loggWith: 'email',
+          account: state.account as string,
+          fullName: state.fullName as string,
+          userName: state.userName as string,
+          password: state.password as string,
+          birthDate: null,
+        })
       );
-      console.log(userData);
     } else if (isNumber) {
-      await AuthClient.Register(
-        'noHp',
-        state.account,
-        state.fullName,
-        state.userName,
-        state.password
+      dispatch(
+        setRegisterState({
+          loggWith: 'noHp',
+          account: state.account as string,
+          fullName: state.fullName as string,
+          userName: state.userName as string,
+          password: state.password as string,
+          birthDate: null,
+        })
       );
     } else {
-      console.log(`invalid in ${state.account}`);
+      console.log(`Number or Email invalid format ${state.account}`);
     }
+    router.push('/register/birthday');
   };
   return (
     <div className="md:w-[350px] md:mx-auto md:pt-3">
@@ -120,7 +129,7 @@ export default function RegisterForm(): ReactElement {
           <button
             type="submit"
             className="h-[32px] w-[265px] bg-igBlue text-white text-[14px] font-semibold text-center rounded-[8px]"
-            onClick={registerSubmitHandler}
+            onClick={nextButton}
           >
             Daftar
           </button>

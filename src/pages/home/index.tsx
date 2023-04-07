@@ -7,8 +7,6 @@ import { RootState } from 'redux/store';
 import { getRegisterState } from 'redux/features/register-data';
 
 export default function Home(): ReactElement {
-  const register = useSelector((state: RootState) => getRegisterState(state));
-  console.log(register);
   return (
     <HomePageLayout title="Instagram">
       <div className="flex gap-[110px] justify-center items-center">
