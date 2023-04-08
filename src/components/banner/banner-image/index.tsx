@@ -51,8 +51,8 @@ export default function BannerImage(): ReactElement {
             alt={`Image ${index}`}
             width={260}
             height={270}
-            className={`absolute top-0 left-1/2 -translate-x-1/2 transition-all duration-2000 ease-in-out ${
-              showedImage === index ? 'opacity-100' : 'opacity-0'
+            className={`absolute top-0 left-1/2 -translate-x-1/2 transition-all duration-1000 ease-in-out ${
+              showedImage === index ? 'opacity-100 visible' : 'opacity-0 invisible'
             }`}
           />
         ))}
