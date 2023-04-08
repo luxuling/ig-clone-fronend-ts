@@ -5,16 +5,18 @@ import imageBanner from '@lib/data/image-banner.json';
 export default function BannerImage(): ReactElement {
   const [showedImage, setShowedImage] = useState(0);
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      setShowedImage((showedImage) => showedImage + 1);
-      if (showedImage >= 3) {
-        setShowedImage(0);
-      }
+    const interval = setInterval(() => {
+      setShowedImage((prevShowedImage) => {
+        if (prevShowedImage >= imageBanner.length - 1) {
+          return 0;
+        } else {
+          return prevShowedImage + 1;
+        }
+      });
     }, 3000);
-    return () => {
-      clearTimeout(timeout);
-    };
-  }, [showedImage]);
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div className="relative hidden lg:block ">
@@ -34,7 +36,7 @@ export default function BannerImage(): ReactElement {
           className="top-0 w-[90%] h-[95%] z-10"
         />
       </div>
-      <div className="absolute top-5 -right-[80px] w-[290px] h-[570px] flex items-center justify-center overflow-hidden z-20">
+      <div className="absolute top-5 -right-[80px] w-[290px] h-[570px] flex items-center justify-center overflow-hidden z-20 rounded-xl">
         <Image
           alt="iphone mockup"
           src="/assets/images/iphone-mockup.png"
@@ -42,12 +44,18 @@ export default function BannerImage(): ReactElement {
           width={200}
           className="absolute h-full w-full top-0 z-20"
         />
-        <div
-          style={{
-            backgroundImage: `url(${imageBanner[showedImage].src})`,
-          }}
-          className="w-[89%] h-[95%] bg-cover bg-center transition-all ease-in-out duration-[2000ms]"
-        />
+        {imageBanner.map((image, index) => (
+          <Image
+            key={index}
+            src={image.src}
+            alt={`Image ${index}`}
+            width={260}
+            height={270}
+            className={`absolute top-0 left-1/2 -translate-x-1/2 transition-all duration-2000 ease-in-out ${
+              showedImage === index ? 'opacity-100' : 'opacity-0'
+            }`}
+          />
+        ))}
       </div>
     </div>
   );
