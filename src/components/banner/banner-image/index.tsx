@@ -9,13 +9,14 @@ export default function BannerImage(): ReactElement {
       setShowedImage((prevShowedImage) => {
         if (prevShowedImage >= imageBanner.length - 1) {
           return 0;
-        } else {
-          return prevShowedImage + 1;
         }
+        return prevShowedImage + 1;
       });
     }, 3000);
 
-    return () => clearInterval(interval);
+    return () => {
+      clearInterval(interval);
+    };
   }, []);
 
   return (

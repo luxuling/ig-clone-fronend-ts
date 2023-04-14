@@ -1,5 +1,4 @@
 import React, { type ReactElement } from 'react';
-import Footer from '@components/footer';
 import RegisterForm from '@components/input/register-form';
 import HomePageLayout from 'layouts/homepage';
 

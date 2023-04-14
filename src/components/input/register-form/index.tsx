@@ -7,6 +7,7 @@ import * as React from 'react';
 import { useDispatch } from 'react-redux';
 import { setRegisterState } from 'redux/features/register-data';
 import validator from 'validator';
+import toast from 'react-hot-toast';
 
 export default function RegisterForm(): React.ReactElement {
   const dispatch = useDispatch();
@@ -31,7 +32,6 @@ export default function RegisterForm(): React.ReactElement {
           fullName: state.fullName as string,
           userName: state.userName as string,
           password: state.password as string,
-          birthDate: null,
         })
       );
     } else if (isNumber) {
@@ -42,11 +42,13 @@ export default function RegisterForm(): React.ReactElement {
           fullName: state.fullName as string,
           userName: state.userName as string,
           password: state.password as string,
-          birthDate: null,
         })
       );
     } else {
-      console.log(`Number or Email invalid format ${state.account}`);
+      toast.error('error when transferring data please try again', {
+        position: 'top-right',
+        duration: 3000,
+      });
     }
     router.push('/register/birthday');
   };
@@ -135,7 +137,7 @@ export default function RegisterForm(): React.ReactElement {
           </button>
         </div>
       </div>
-      <HaveAccount haveAccount={true} />
+      <HaveAccount haveAccount />
     </div>
   );
 }

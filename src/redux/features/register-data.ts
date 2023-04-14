@@ -7,7 +7,6 @@ interface RegisterState {
   fullName: string | null;
   userName: string | null;
   password: string | null;
-  birthDate: string | null;
 }
 
 const initialState: RegisterState = {
@@ -16,7 +15,6 @@ const initialState: RegisterState = {
   fullName: null,
   userName: null,
   password: null,
-  birthDate: null,
 };
 
 const registerSlice = createSlice({
@@ -31,7 +29,6 @@ const registerSlice = createSlice({
         fullName: string;
         userName: string;
         password: string;
-        birthDate: string | null;
       }>
     ) {
       state.loggWith = action.payload.loggWith;
@@ -40,12 +37,9 @@ const registerSlice = createSlice({
       state.userName = action.payload.userName;
       state.password = action.payload.password;
     },
-    setBirthDate(state, action: PayloadAction<{ birthDate: string | null }>) {
-      state.birthDate = action.payload.birthDate;
-    },
   },
 });
 
-export const { setRegisterState, setBirthDate } = registerSlice.actions;
+export const { setRegisterState } = registerSlice.actions;
 export const getRegisterState = (state: RootState) => state.register;
 export default registerSlice.reducer;

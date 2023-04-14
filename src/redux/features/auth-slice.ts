@@ -1,5 +1,5 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState } from 'redux/store';
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+import { type RootState } from 'redux/store';
 
 interface AuthState {
   userId: string | null;
@@ -32,8 +32,9 @@ const authSlice = createSlice({
       state.isLoading = false;
       state.error = action.payload;
     },
-    registerUserStart(state) {
+    registerUserStart(state, action: PayloadAction<{ userId: string }>) {
       state.isLoading = true;
+      state.userId = action.payload.userId;
       state.error = null;
     },
     registerUserSuccess(state, action: PayloadAction<{ userId: string; token: string }>) {
@@ -60,4 +61,4 @@ export const {
 export const selectUserId = (state: RootState) => state.auth.userId;
 export const selectToken = (state: RootState) => state.auth.token;
 
-export const authReducer = authSlice.reducer;
+export default authSlice.reducer;

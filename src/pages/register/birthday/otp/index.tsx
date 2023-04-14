@@ -1,18 +1,33 @@
 import HaveAccount from '@components/button/haveAccount';
 import LoginInput from '@components/input/loginInput';
+import apiMock from '@lib/helper/apiMock';
 import HomePageLayout from 'layouts/homepage';
 import Image from 'next/image';
 import Link from 'next/link';
 import * as React from 'react';
+import { useSelector } from 'react-redux';
+import { selectUserId } from 'redux/features/auth-slice';
+import { RootState } from 'redux/store';
+import toast from 'react-hot-toast';
 
 export default function Otp(): React.ReactElement {
+  const userId = useSelector((state: RootState) => selectUserId(state));
   const [otpValue, setOtpValue] = React.useState('');
   const otpInputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.target.value = e.target.value.replace(/\s/g, '');
     setOtpValue(e.target.value);
   };
-  const submitOtpHandler = () => {
-    console.log(otpValue);
+  const submitOtpHandler = async () => {
+    try {
+      const response = await apiMock.post('/auth/otp/validate', {
+        userId,
+        otp: otpValue,
+      });
+      toast.success('Your otp has been validated');
+      console.log(response);
+    } catch (error: any) {
+      toast.error(error.response.data);
+    }
   };
   return (
     <HomePageLayout title="Register-OTP">
@@ -56,7 +71,7 @@ export default function Otp(): React.ReactElement {
           </div>
         </div>
         <div className="md:w-[350px] md:mx-auto">
-          <HaveAccount haveAccount={true} />
+          <HaveAccount haveAccount />
         </div>
       </>
     </HomePageLayout>

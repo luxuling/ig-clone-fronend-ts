@@ -1,16 +1,22 @@
 import HaveAccount from '@components/button/haveAccount';
 import BirthDayInput from '@components/input/birtday-input';
+import apiMock from '@lib/helper/apiMock';
 import HomePageLayout from 'layouts/homepage';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import * as React from 'react';
-import { useDispatch } from 'react-redux';
-import { setBirthDate } from 'redux/features/register-data';
+import { useSelector, useDispatch } from 'react-redux';
+import toast from 'react-hot-toast';
+import { getRegisterState } from 'redux/features/register-data';
+import { RootState } from 'redux/store';
+
+import { registerUserStart } from 'redux/features/auth-slice';
 
 export default function BirthDay(): React.ReactElement {
-  const router = useRouter();
   const dispatch = useDispatch();
+  const router = useRouter();
+  const registerData = useSelector((state: RootState) => getRegisterState(state));
   const [state, setState] = React.useState({
     day: '',
     month: '',
@@ -20,13 +26,45 @@ export default function BirthDay(): React.ReactElement {
   const birthdayInputHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setState({ ...state, [e.target.id]: e.target.value });
   };
-  const nextButton = () => {
-    dispatch(
-      setBirthDate({
-        birthDate: `${state.day}-${state.month}-${state.year}`,
-      })
-    );
-    router.push('/register/birthday/otp');
+  const nextButton = async () => {
+    if (state.day.length === 0 || state.month.length === 0 || state.year.length === 0) {
+      toast.error('Please select your birtday', {
+        position: 'top-right',
+        duration: 3000,
+      });
+      return;
+    }
+    try {
+      if (registerData.loggWith === 'email') {
+        const response = await apiMock.post('/auth/register', {
+          userName: registerData.userName,
+          fullName: registerData.fullName,
+          email: registerData.account,
+          birth: `${state.day}-${state.month}-${state.year}`,
+          password: registerData.password,
+        });
+        dispatch(registerUserStart({ userId: response.data.data.userId }));
+      } else {
+        const response = await apiMock.post('/auth/register', {
+          userName: registerData.userName,
+          fullName: registerData.fullName,
+          noHp: registerData.account,
+          birth: `${state.day}-${state.month}-${state.year}`,
+          password: registerData.password,
+        });
+        dispatch(registerUserStart({ userId: response.data.data.userId }));
+      }
+      toast.success('Success sending OTP', {
+        position: 'top-right',
+        duration: 3000,
+      });
+      router.push('/register/birthday/otp');
+    } catch (error: any) {
+      toast.error(`${error?.response?.data}`, {
+        position: 'top-right',
+        duration: 3000,
+      });
+    }
   };
   return (
     <HomePageLayout title="Register-BirthDay">
@@ -64,7 +102,7 @@ export default function BirthDay(): React.ReactElement {
           </div>
         </div>
         <div className="md:w-[350px] md:mx-auto">
-          <HaveAccount haveAccount={true} />
+          <HaveAccount haveAccount />
         </div>
       </>
     </HomePageLayout>
