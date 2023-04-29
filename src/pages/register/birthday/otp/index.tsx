@@ -5,28 +5,44 @@ import HomePageLayout from 'layouts/homepage';
 import Image from 'next/image';
 import Link from 'next/link';
 import * as React from 'react';
-import { useSelector } from 'react-redux';
-import { selectUserId } from 'redux/features/auth-slice';
+import { useSelector, useDispatch } from 'react-redux';
+import { registerUserSuccess, selectUserId } from 'redux/features/auth-slice';
 import { RootState } from 'redux/store';
 import toast from 'react-hot-toast';
+import { RaceBy } from '@uiball/loaders';
 
 export default function Otp(): React.ReactElement {
   const userId = useSelector((state: RootState) => selectUserId(state));
+  const [isLoading, setIsLoading] = React.useState(false);
+  const dispatch = useDispatch();
   const [otpValue, setOtpValue] = React.useState('');
   const otpInputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.target.value = e.target.value.replace(/\s/g, '');
     setOtpValue(e.target.value);
   };
+
   const submitOtpHandler = async () => {
     try {
+      setIsLoading(true);
       const response = await apiMock.post('/auth/otp/validate', {
         userId,
         otp: otpValue,
       });
-      toast.success('Your otp has been validated');
-      console.log(response);
+      toast.success('Your otp has been validated', {
+        position: 'top-right',
+      });
+      dispatch(
+        registerUserSuccess({
+          userId: response.data.id,
+          token: response.data.token,
+        })
+      );
+      setIsLoading(false);
     } catch (error: any) {
-      toast.error(error.response.data);
+      toast.error(`${error?.response?.data.message}`, {
+        position: 'top-right',
+      });
+      setIsLoading(false);
     }
   };
   return (
@@ -54,10 +70,12 @@ export default function Otp(): React.ReactElement {
           <div className="mt-7">
             <button
               type="submit"
-              className="h-[32px] w-[265px] bg-igBlue text-white text-[14px] font-semibold text-center rounded-[8px]"
+              className={`h-[32px] w-[265px] ${
+                otpValue.length === 0 ? 'bg-igBlue/40' : 'bg-igBlue'
+              } text-white text-[14px] font-semibold text-center rounded-[8px]`}
               onClick={submitOtpHandler}
             >
-              Konfirmasi
+              {isLoading ? <RaceBy /> : <>Konfirmasi</>}
             </button>
           </div>
           <div className="flex items-center gap-2 justify-center mt-8">
