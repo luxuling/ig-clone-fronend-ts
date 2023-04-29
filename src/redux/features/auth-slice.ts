@@ -60,5 +60,6 @@ export const {
 
 export const selectUserId = (state: RootState) => state.auth.userId;
 export const selectToken = (state: RootState) => state.auth.token;
+export const selectIsLoading = (state: RootState) => state.auth.isLoading;
 
 export default authSlice.reducer;

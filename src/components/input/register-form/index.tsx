@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux';
 import { setRegisterState } from 'redux/features/register-data';
 import validator from 'validator';
 import toast from 'react-hot-toast';
+import useFormChecker from 'hooks/form-checker';
 
 export default function RegisterForm(): React.ReactElement {
   const dispatch = useDispatch();
@@ -18,6 +19,7 @@ export default function RegisterForm(): React.ReactElement {
     userName: '',
     password: '',
   });
+  const isDisabled = useFormChecker({ state });
   const registerFormHandler = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setState({ ...state, [e.target.id]: e.target.value });
   };
@@ -45,10 +47,11 @@ export default function RegisterForm(): React.ReactElement {
         })
       );
     } else {
-      toast.error('error when transferring data please try again', {
+      toast.error('Please input the number or email correctly!', {
         position: 'top-right',
         duration: 3000,
       });
+      return;
     }
     router.push('/register/birthday');
   };
@@ -130,7 +133,9 @@ export default function RegisterForm(): React.ReactElement {
         <div className="mt-3">
           <button
             type="submit"
-            className="h-[32px] w-[265px] bg-igBlue text-white text-[14px] font-semibold text-center rounded-[8px]"
+            className={`h-[32px] w-[265px] ${
+              isDisabled ? 'bg-igBlue/40' : 'bg-igBlue'
+            } text-white text-[14px] font-semibold text-center rounded-[8px] flex justify-center items-center`}
             onClick={nextButton}
           >
             Daftar

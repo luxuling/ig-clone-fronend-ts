@@ -10,10 +10,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import toast from 'react-hot-toast';
 import { getRegisterState } from 'redux/features/register-data';
 import { RootState } from 'redux/store';
-
 import { registerUserStart } from 'redux/features/auth-slice';
+import { RaceBy } from '@uiball/loaders';
+import useFormChecker from 'hooks/form-checker';
 
 export default function BirthDay(): React.ReactElement {
+  const [loading, setLoading] = React.useState(false);
   const dispatch = useDispatch();
   const router = useRouter();
   const registerData = useSelector((state: RootState) => getRegisterState(state));
@@ -22,11 +24,12 @@ export default function BirthDay(): React.ReactElement {
     month: '',
     year: '',
   });
-
+  const isDisabled = useFormChecker({ state });
   const birthdayInputHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setState({ ...state, [e.target.id]: e.target.value });
   };
   const nextButton = async () => {
+    setLoading(true);
     if (state.day.length === 0 || state.month.length === 0 || state.year.length === 0) {
       toast.error('Please select your birtday', {
         position: 'top-right',
@@ -43,8 +46,9 @@ export default function BirthDay(): React.ReactElement {
           birth: `${state.day}-${state.month}-${state.year}`,
           password: registerData.password,
         });
-        dispatch(registerUserStart({ userId: response.data.data.userId }));
-      } else {
+        console.log(response);
+        dispatch(registerUserStart({ userId: response.data.id }));
+      } else if (registerData.loggWith === 'noHp') {
         const response = await apiMock.post('/auth/register', {
           userName: registerData.userName,
           fullName: registerData.fullName,
@@ -52,7 +56,7 @@ export default function BirthDay(): React.ReactElement {
           birth: `${state.day}-${state.month}-${state.year}`,
           password: registerData.password,
         });
-        dispatch(registerUserStart({ userId: response.data.data.userId }));
+        dispatch(registerUserStart({ userId: response.data.id }));
       }
       toast.success('Success sending OTP', {
         position: 'top-right',
@@ -60,11 +64,12 @@ export default function BirthDay(): React.ReactElement {
       });
       router.push('/register/birthday/otp');
     } catch (error: any) {
-      toast.error(`${error?.response?.data}`, {
+      toast.error(`${error?.response?.data.message}`, {
         position: 'top-right',
         duration: 3000,
       });
     }
+    setLoading(false);
   };
   return (
     <HomePageLayout title="Register-BirthDay">
@@ -89,10 +94,16 @@ export default function BirthDay(): React.ReactElement {
           <div className="mt-3">
             <button
               type="submit"
-              className="h-[32px] w-[265px] bg-igBlue text-white text-[14px] font-semibold text-center rounded-[8px]"
+              className={`h-[32px] w-[265px] ${
+                isDisabled ? 'bg-igBlue/40' : 'bg-igBlue'
+              } text-white text-[14px] font-semibold text-center rounded-[8px] flex justify-center items-center`}
               onClick={nextButton}
             >
-              Selanjutnya
+              {loading ? (
+                <RaceBy size={80} lineWeight={5} speed={1.4} color="white" />
+              ) : (
+                'Selanjutnya'
+              )}
             </button>
           </div>
           <div className="flex justify-center mt-3 lg:h-[65px] lg:items-center lg:mt-0">
