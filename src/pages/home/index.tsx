@@ -1,15 +1,12 @@
-import React, { type ReactElement } from 'react';
-import LoginForm from '@components/input/login-form';
-import BannerImage from '@components/banner/banner-image';
-import HomePageLayout from 'layouts/homepage';
+import BottomNavbar from '@components/navbar/BottomNavbar';
+import HomeNavbar from '@components/navbar/HomeNavbar';
+import React from 'react';
 
-export default function Home(): ReactElement {
+export default function Home() {
   return (
-    <HomePageLayout title="Instagram">
-      <div className="flex gap-[110px] justify-center items-center">
-        <BannerImage />
-        <LoginForm />
-      </div>
-    </HomePageLayout>
+    <div className="bg-black">
+      <HomeNavbar />
+      <BottomNavbar />
+    </div>
   );
 }
