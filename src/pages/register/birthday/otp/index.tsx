@@ -1,7 +1,7 @@
 import HaveAccount from '@components/button/haveAccount';
 import LoginInput from '@components/input/loginInput';
 import apiMock from '@lib/helper/apiMock';
-import HomePageLayout from 'layouts/createAccount';
+import HomePageLayout from 'layouts/CreateAccount';
 import Image from 'next/image';
 import Link from 'next/link';
 import * as React from 'react';
