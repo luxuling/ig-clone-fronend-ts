@@ -1,7 +1,7 @@
 import HaveAccount from '@components/button/haveAccount';
 import BirthDayInput from '@components/input/birtday-input';
 import apiMock from '@lib/helper/apiMock';
-import HomePageLayout from 'layouts/createAccount';
+import HomePageLayout from 'layouts/CreateAccount';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';

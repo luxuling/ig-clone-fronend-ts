@@ -1,7 +1,7 @@
 import React, { type ReactElement } from 'react';
 import LoginForm from '@components/input/login-form';
 import BannerImage from '@components/banner/banner-image';
-import HomePageLayout from 'layouts/createAccount';
+import HomePageLayout from 'layouts/CreateAccount';
 
 export default function Login(): ReactElement {
   return (

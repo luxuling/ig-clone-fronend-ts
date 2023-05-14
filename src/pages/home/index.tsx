@@ -1,12 +1,11 @@
-import BottomNavbar from '@components/navbar/BottomNavbar';
-import HomeNavbar from '@components/navbar/HomeNavbar';
+import StoryAccountSlider from '@components/slider/story';
+import HomeLayout from 'layouts/HomeLayout';
 import React from 'react';
 
 export default function Home() {
   return (
-    <div className="bg-black">
-      <HomeNavbar />
-      <BottomNavbar />
-    </div>
+    <HomeLayout>
+      <StoryAccountSlider />
+    </HomeLayout>
   );
 }
