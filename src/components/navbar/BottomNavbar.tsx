@@ -17,19 +17,61 @@ export default function BottomNavbar() {
   const path = useRouter().pathname;
 
   return (
-    <div className="fixed bottom-0 h-[60px] w-full bg-black flex justify-between items-center px-6">
-      <div>{path === '/' ? <HomeFillIcon /> : <HomeRegularIcon />}</div>
-      <div>{path === '/explore' ? <ExploreFillIcon /> : <ExploreRegularIcon />}</div>
-      <div>{path === '/rels' ? <RelsFillIcon /> : <RelsRegularIcon />}</div>
-      <div className="hidden">{path === '/post' ? <PostFillIcon /> : <PostRegularIcon />}</div>
-      <div>{path === '/inbox' ? <MessageFillIcon /> : <MessageRegularIcon />}</div>
-      <div>
+    <div className="fixed md:sticky md:top-0 bottom-0 h-[60px] w-full bg-black flex justify-between items-center px-6 z-[99] md:flex-col md:h-[100vh] md:w-[73px] md:justify-start md:border-r border-r-[#363636] gap-1 md:pt-[25px]">
+      <button
+        type="button"
+        className="hidden md:flex w-[48px] h-[48px] text-white justify-center items-center text-[25px]"
+      >
+        <Icon icon="mdi:instagram" />
+      </button>
+      <button
+        type="button"
+        className="w-[48px] h-[48px] flex items-center justify-center md:mt-[20px]"
+      >
+        {path === '/' ? <HomeFillIcon /> : <HomeRegularIcon />}
+      </button>
+      <button
+        type="button"
+        className="hidden md:flex w-[48px] h-[48px] text-white justify-center items-center text-[25px]"
+      >
+        <Icon icon="bx:search" />
+      </button>
+      <button type="button" className="w-[48px] h-[48px] flex items-center justify-center">
+        {path === '/explore' ? <ExploreFillIcon /> : <ExploreRegularIcon />}
+      </button>
+      <button type="button" className="w-[48px] h-[48px] flex items-center justify-center">
+        {path === '/rels' ? <RelsFillIcon /> : <RelsRegularIcon />}
+      </button>
+      <button
+        type="button"
+        className="w-[48px] h-[48px] md:flex items-center justify-center hidden"
+      >
+        {path === '/post' ? <PostFillIcon /> : <PostRegularIcon />}
+      </button>
+      <button type="button" className="w-[48px] h-[48px] flex items-center justify-center">
+        {path === '/inbox' ? <MessageFillIcon /> : <MessageRegularIcon />}
+      </button>
+      <button type="button" className="w-[48px] h-[48px] flex items-center justify-center">
+        <Icon
+          icon="streamline:interface-favorite-heart-reward-social-rating-media-heart-it-like-favorite-love"
+          className="text-[24px] text-white
+        "
+        />
+      </button>
+      <button type="button" className="w-[48px] h-[48px] flex items-center justify-center">
         <Icon
           icon="material-symbols:person"
           className="text-[24px] text-bgGrey rounded-full border border-white
         "
         />
-      </div>
+      </button>
+      <button type="button" className="w-[48px] h-[48px] flex items-center justify-center">
+        <Icon
+          icon="iconamoon:menu-burger-horizontal"
+          className="text-[24px] text-white
+        "
+        />
+      </button>
     </div>
   );
 }
