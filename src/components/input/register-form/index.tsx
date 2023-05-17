@@ -133,6 +133,7 @@ export default function RegisterForm(): React.ReactElement {
         <div className="mt-3">
           <button
             type="submit"
+            disabled={isDisabled}
             className={`h-[32px] w-[265px] ${
               isDisabled ? 'bg-igBlue/40' : 'bg-igBlue'
             } text-white text-[14px] font-semibold text-center rounded-[8px] flex justify-center items-center`}
