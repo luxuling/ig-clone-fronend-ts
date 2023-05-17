@@ -18,7 +18,7 @@ export default function StoryAccountSlider() {
 
   const getStorys = async () => {
     setLoading(true);
-    const updated = (await axios.get('https://randomuser.me/api/?results=10')).data.results;
+    const updated = (await axios.get('https://randomuser.me/api/?results=20')).data.results;
     setStorys(updated);
     setLoading(false);
   };
@@ -27,7 +27,7 @@ export default function StoryAccountSlider() {
   }, []);
 
   return (
-    <div className="h-[106px] flex items-center bg-[#121212] border-b border-b-[#363636] border-t border-t-[#363636] py-3 md:border-none md:bg-black md:mt-[30px]">
+    <div className="h-[106px] flex items-center bg-[#121212] border-b border-b-[#363636] border-t border-t-[#363636] py-3 md:border-none md:bg-black md:mt-[30px] lg:px-[35px]">
       <div className="flex items-center h-full gap-3 px-3 overflow-x-auto scrollbar-hide">
         <CreateStory />
         {loading ? (

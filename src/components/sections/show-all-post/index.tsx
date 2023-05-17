@@ -1,6 +1,6 @@
 import React from 'react';
 import '@splidejs/react-splide/css';
-import PostCard from '../post-card';
+import PostCard from '../../cards/post-card';
 
 export default function ShowAllPost() {
   const exampleImages = [
