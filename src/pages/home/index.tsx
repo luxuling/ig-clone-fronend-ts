@@ -7,7 +7,7 @@ import React from 'react';
 export default function Home() {
   return (
     <HomeLayout>
-      <div className="flex flex-1">
+      <div className="lg:flex lg:flex-1">
         <div className="md:flex-1 md:w-[697px]">
           <StoryAccountSlider />
           <ShowAllPost />
