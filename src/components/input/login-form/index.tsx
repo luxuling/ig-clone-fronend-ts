@@ -1,24 +1,47 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import React, { type ReactElement, useEffect, useState, ChangeEvent } from 'react';
+import * as React from 'react';
 import Image from 'next/image';
 import LoginInput from '@components//input/loginInput';
 import SubmitButton from '@components//button/submit';
 import { Icon } from '@iconify/react';
-import Link from 'next/link';
 import HaveAccount from '@components/button/haveAccount';
+import apiMock from '@lib/helper/apiMock';
+import useFormChecker from 'hooks/form-checker';
+import toast from 'react-hot-toast';
+import { setUserData } from 'redux/features/auth-slice';
+import { useDispatch } from 'react-redux';
+import { useRouter } from 'next/router';
 
-export default function LoginForm(): ReactElement {
-  const [state, setState] = useState({
+export default function LoginForm(): React.ReactElement {
+  const [loading, setLoading] = React.useState(false);
+  const [state, setState] = React.useState({
     acc: '',
     password: '',
   });
-  const loginHandler = (e: ChangeEvent<HTMLInputElement>): void => {
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const isDisabled = useFormChecker({ state });
+  const inputHandler = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setState({ ...state, [e.target.id]: e.target.value });
   };
-  useEffect(() => {
-    // eslint-disable-next-line no-console
-    console.log(state);
-  }, [state]);
+
+  const loginHandler = async () => {
+    try {
+      setLoading(true);
+      const response = await apiMock.post('/auth/login', state);
+      dispatch(setUserData({ userData: response.data.data }));
+      setLoading(false);
+      toast.success('Your Login succesfull!', {
+        position: 'top-right',
+      });
+      router.push('/');
+    } catch (error: any) {
+      toast.error(`${error?.response?.data.message}`, {
+        position: 'top-right',
+      });
+      setLoading(false);
+    }
+  };
   return (
     <div>
       <div className="lg:border lg:border-lineGrey lg:mt-[50px] lg:px-[40px] lg:pb-3">
@@ -35,22 +58,22 @@ export default function LoginForm(): ReactElement {
           <LoginInput
             type="text"
             placeholder="Nomor telepon, nama pengguna, atau email"
-            handler={loginHandler}
+            handler={inputHandler}
             id="acc"
           />
           <LoginInput
             type="password"
             placeholder="Kata sandi"
-            handler={loginHandler}
+            handler={inputHandler}
             id="password"
           />
         </div>
         <div className="flex justify-center mt-4">
           <SubmitButton
             label="Masuk"
-            handler={() => {
-              console.log('sdfsdf');
-            }}
+            handler={loginHandler}
+            isDisabled={isDisabled}
+            isLoading={loading}
           />
         </div>
         <div className="flex items-center gap-4 w-[270px] mx-auto mt-4">

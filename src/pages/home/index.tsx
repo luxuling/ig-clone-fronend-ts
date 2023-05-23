@@ -1,10 +1,11 @@
+import withAuth from '@components/hoc/withAuth';
 import ShowAllPost from '@components/sections/show-all-post';
 import Suggestion from '@components/sections/show-suggestion';
 import StoryAccountSlider from '@components/slider/story';
 import HomeLayout from 'layouts/HomeLayout';
 import React from 'react';
 
-export default function Home() {
+export function Home() {
   return (
     <HomeLayout>
       <div className="lg:flex lg:flex-1">
@@ -17,3 +18,4 @@ export default function Home() {
     </HomeLayout>
   );
 }
+export default withAuth(Home);
