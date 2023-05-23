@@ -23,8 +23,8 @@ export default function PostCard({ images }: { images: [] }) {
                 key={`image-${index}`}
                 src={image}
                 alt="post"
-                width={300}
-                height={300}
+                width={900}
+                height={900}
                 className="w-full"
                 priority
               />

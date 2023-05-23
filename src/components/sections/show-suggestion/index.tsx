@@ -26,7 +26,7 @@ export default function Suggestion() {
     getStorys();
   }, []);
   return (
-    <div className="hidden lg:block w-[420px] mt-[30px] px-[50px]">
+    <div className="hidden xl:block w-[420px] mt-[30px] px-[50px]">
       <header className="h-[90px] flex items-center py-3 justify-start gap-4">
         <div className="w-[56px] h-[56px] rounded-full overflow-hidden">
           <Image src="/assets/images/profile.png" alt="photo profile" width={100} height={100} />

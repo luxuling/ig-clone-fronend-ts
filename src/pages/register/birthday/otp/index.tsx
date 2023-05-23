@@ -10,9 +10,11 @@ import { registerUserSuccess, selectUserId } from 'redux/features/auth-slice';
 import { RootState } from 'redux/store';
 import toast from 'react-hot-toast';
 import { RaceBy } from '@uiball/loaders';
+import { useRouter } from 'next/router';
 
 export default function Otp(): React.ReactElement {
   const userId = useSelector((state: RootState) => selectUserId(state));
+  const router = useRouter();
   const [isLoading, setIsLoading] = React.useState(false);
   const dispatch = useDispatch();
   const [otpValue, setOtpValue] = React.useState('');
@@ -38,6 +40,7 @@ export default function Otp(): React.ReactElement {
         })
       );
       setIsLoading(false);
+      router.push('/login');
     } catch (error: any) {
       toast.error(`${error?.response?.data.message}`, {
         position: 'top-right',
@@ -72,13 +75,13 @@ export default function Otp(): React.ReactElement {
               type="submit"
               className={`h-[32px] w-[265px] ${
                 otpValue.length === 0 ? 'bg-igBlue/40' : 'bg-igBlue'
-              } text-white text-[14px] font-semibold text-center rounded-[8px]`}
+              } text-white text-[14px] font-semibold text-center rounded-[8px] flex justify-center items-center`}
               onClick={submitOtpHandler}
             >
-              {isLoading ? <RaceBy /> : <>Konfirmasi</>}
+              {isLoading ? <RaceBy color="white" /> : <>Konfirmasi</>}
             </button>
           </div>
-          <div className="flex items-center gap-2 justify-center mt-8">
+          <div className="flex items-center justify-center gap-2 mt-8">
             <Link href="/option/change/number" className="font-semibold text-igBlue">
               Ganti nomor
             </Link>

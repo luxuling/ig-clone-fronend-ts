@@ -10,7 +10,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import toast from 'react-hot-toast';
 import { getRegisterState } from 'redux/features/register-data';
 import { RootState } from 'redux/store';
-import { registerUserStart } from 'redux/features/auth-slice';
+import { setUserData } from 'redux/features/auth-slice';
 import { RaceBy } from '@uiball/loaders';
 import useFormChecker from 'hooks/form-checker';
 
@@ -46,8 +46,7 @@ export default function BirthDay(): React.ReactElement {
           birth: `${state.day}-${state.month}-${state.year}`,
           password: registerData.password,
         });
-        console.log(response);
-        dispatch(registerUserStart({ userId: response.data.id }));
+        dispatch(setUserData({ userData: response.data.data }));
       } else if (registerData.loggWith === 'noHp') {
         const response = await apiMock.post('/auth/register', {
           userName: registerData.userName,
@@ -56,7 +55,7 @@ export default function BirthDay(): React.ReactElement {
           birth: `${state.day}-${state.month}-${state.year}`,
           password: registerData.password,
         });
-        dispatch(registerUserStart({ userId: response.data.id }));
+        dispatch(setUserData({ userData: response.data.data }));
       }
       toast.success('Success sending OTP', {
         position: 'top-right',
