@@ -74,7 +74,7 @@ export default function BottomNavbar() {
         />
         <h1 className="hidden lg:inline">Profil</h1>
       </button>
-      <button type="button" className={`flex ${defaultButtonStyle}`}>
+      <button type="button" className={`hidden lg:flex ${defaultButtonStyle}`}>
         <Icon
           icon="iconamoon:menu-burger-horizontal"
           className="text-[24px] text-white

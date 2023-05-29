@@ -130,7 +130,7 @@ export default function RegisterForm(): React.ReactElement {
             kami.
           </p>
         </div>
-        <div className="mt-3">
+        <div className="flex justify-center mt-3">
           <button
             type="submit"
             disabled={isDisabled}

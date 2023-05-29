@@ -1,8 +1,11 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import { type RootState } from 'redux/store';
 
+interface UserData {
+  id: string;
+}
 interface AuthState {
-  userData: object | null;
+  userData: UserData | null;
 }
 
 const initialState: AuthState = {
@@ -13,12 +16,12 @@ const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    setUserData(state, action: PayloadAction<{ userData: object }>) {
+    setUserData(state, action: PayloadAction<{ userData: UserData }>) {
       state.userData = action.payload.userData;
     },
   },
 });
 
 export const { setUserData } = authSlice.actions;
-export const getUserData = (state: RootState) => state.auth;
+export const getUserData = (state: RootState) => state.auth.userData;
 export default authSlice.reducer;

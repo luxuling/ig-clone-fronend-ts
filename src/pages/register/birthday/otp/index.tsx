@@ -5,18 +5,20 @@ import HomePageLayout from 'layouts/CreateAccount';
 import Image from 'next/image';
 import Link from 'next/link';
 import * as React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { registerUserSuccess, selectUserId } from 'redux/features/auth-slice';
-import { RootState } from 'redux/store';
+import { useDispatch, useSelector } from 'react-redux';
 import toast from 'react-hot-toast';
 import { RaceBy } from '@uiball/loaders';
 import { useRouter } from 'next/router';
+import { setUserData } from 'redux/features/auth-slice';
+
+import { RootState } from 'redux/store';
+import { getRegisterState } from 'redux/features/register-data';
 
 export default function Otp(): React.ReactElement {
-  const userId = useSelector((state: RootState) => selectUserId(state));
   const router = useRouter();
   const [isLoading, setIsLoading] = React.useState(false);
   const dispatch = useDispatch();
+  const userData = useSelector((state) => getRegisterState(state as RootState));
   const [otpValue, setOtpValue] = React.useState('');
   const otpInputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.target.value = e.target.value.replace(/\s/g, '');
@@ -27,18 +29,12 @@ export default function Otp(): React.ReactElement {
     try {
       setIsLoading(true);
       const response = await apiMock.post('/auth/otp/validate', {
-        userId,
         otp: otpValue,
       });
       toast.success('Your otp has been validated', {
         position: 'top-right',
       });
-      dispatch(
-        registerUserSuccess({
-          userId: response.data.id,
-          token: response.data.token,
-        })
-      );
+      dispatch(setUserData({ userData: response.data.data }));
       setIsLoading(false);
       router.push('/login');
     } catch (error: any) {
@@ -60,7 +56,9 @@ export default function Otp(): React.ReactElement {
             priority
           />
           <h1 className="text-[16px] font-semibold mt-2">Satu langkah lagi</h1>
-          <p className="text-[14px] mt-3">Masukan 6-digit yang kami kirimkan ke: 09099090998.</p>
+          <p className="text-[14px] mt-3">
+            Masukan 6-digit yang kami kirimkan ke: {userData.account}.
+          </p>
           <div className="mt-3">
             <LoginInput
               type="text"
