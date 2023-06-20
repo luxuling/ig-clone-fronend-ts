@@ -14,11 +14,22 @@ import MessageFillIcon from '@public/assets/svg/bottomNavbar/msgFill.svg';
 import { useRouter } from 'next/router';
 import { Icon } from '@iconify/react';
 import Image from 'next/image';
+import { useSelector } from 'react-redux';
+import { RootState } from 'redux/store';
 
 export default function BottomNavbar() {
-  const path = useRouter().pathname;
+  const userData = useSelector((state: RootState) => state.auth);
+  console.log(userData);
+  const router = useRouter();
+  const path = router.pathname;
   const defaultButtonStyle =
     'w-[48px] h-[48px] items-center justify-center lg:w-auto lg:text-white lg:flex lg:gap-4';
+
+  class NavbarButtonsActions {
+    static profile() {
+      router.push('/profile');
+    }
+  }
   return (
     <div className="fixed md:sticky md:top-0 bottom-0 h-[60px] w-full bg-black flex justify-between items-center px-6 z-[99] md:flex-col md:h-[100vh] md:w-[73px] md:justify-start md:border-r border-r-[#363636] gap-1 md:pt-[25px] lg:w-[240px] lg:items-start lg:gap-[10px]">
       <button
@@ -66,7 +77,11 @@ export default function BottomNavbar() {
         {path === '/post' ? <PostFillIcon /> : <PostRegularIcon />}
         <h1 className="hidden lg:inline">Buat</h1>
       </button>
-      <button type="button" className={`flex ${defaultButtonStyle}`}>
+      <button
+        type="button"
+        className={`flex ${defaultButtonStyle}`}
+        onClick={NavbarButtonsActions.profile}
+      >
         <Icon
           icon="material-symbols:person"
           className="text-[24px] text-bgGrey rounded-full border border-white
@@ -74,7 +89,7 @@ export default function BottomNavbar() {
         />
         <h1 className="hidden lg:inline">Profil</h1>
       </button>
-      <button type="button" className={`flex ${defaultButtonStyle}`}>
+      <button type="button" className={`hidden md:flex ${defaultButtonStyle}`}>
         <Icon
           icon="iconamoon:menu-burger-horizontal"
           className="text-[24px] text-white

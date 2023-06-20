@@ -13,7 +13,7 @@ module.exports = {
         lineGrey: '#dbdbdb',
         bgGrey: '#FAFAFA',
         darkGrey: '#262626',
-        ligthGrey: '#A8A8A8',
+        lightGrey: '#A8A8A8',
       },
     },
   },

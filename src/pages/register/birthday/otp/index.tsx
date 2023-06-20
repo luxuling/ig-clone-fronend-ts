@@ -1,19 +1,17 @@
 import HaveAccount from '@components/button/haveAccount';
 import LoginInput from '@components/input/loginInput';
 import apiMock from '@lib/helper/apiMock';
-import HomePageLayout from 'layouts/CreateAccount';
 import Image from 'next/image';
 import Link from 'next/link';
 import * as React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { registerUserSuccess, selectUserId } from 'redux/features/auth-slice';
-import { RootState } from 'redux/store';
+import { useDispatch } from 'react-redux';
 import toast from 'react-hot-toast';
 import { RaceBy } from '@uiball/loaders';
 import { useRouter } from 'next/router';
+import HomePageLayout from 'layouts/CreateAccount';
+import { setUserData } from 'redux/features/auth-slice';
 
 export default function Otp(): React.ReactElement {
-  const userId = useSelector((state: RootState) => selectUserId(state));
   const router = useRouter();
   const [isLoading, setIsLoading] = React.useState(false);
   const dispatch = useDispatch();
@@ -27,18 +25,12 @@ export default function Otp(): React.ReactElement {
     try {
       setIsLoading(true);
       const response = await apiMock.post('/auth/otp/validate', {
-        userId,
         otp: otpValue,
       });
       toast.success('Your otp has been validated', {
         position: 'top-right',
       });
-      dispatch(
-        registerUserSuccess({
-          userId: response.data.id,
-          token: response.data.token,
-        })
-      );
+      dispatch(setUserData({ userData: response.data.data }));
       setIsLoading(false);
       router.push('/login');
     } catch (error: any) {

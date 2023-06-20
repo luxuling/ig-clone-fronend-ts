@@ -14,14 +14,14 @@ export default function HomeNavbar() {
           height={40}
           className="w-[102px]"
         />
-        <Icon icon="ic:baseline-arrow-forward-ios" className="rotate-90 text-white" />
+        <Icon icon="ic:baseline-arrow-forward-ios" className="text-white rotate-90" />
       </div>
       <button type="button" className="ml-auto">
         <PostRegularIcon />
       </button>
       <Icon
         icon="streamline:interface-favorite-heart-reward-social-rating-media-heart-it-like-favorite-love"
-        className="text-xl ml-3"
+        className="ml-3 text-xl"
       />
     </nav>
   );
